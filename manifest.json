@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "DocLens – Word, Excel & PowerPoint Viewer",
+  "short_name": "DocLens",
+  "version": "1.0.0",
+  "description": "Open Word (.docx), Excel (.xlsx, .xls, .csv, .ods) and PowerPoint (.pptx) files right in Chrome. Everything renders locally – nothing is uploaded.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "DocLens",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "downloads",
+    "webNavigation",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["viewer.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "minimum_chrome_version": "110"
+}

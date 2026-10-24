@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DocLens</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="icons/icon48.png" alt="" width="32" height="32">
+    <div>
+      <h1>DocLens</h1>
+      <p>Word, Excel &amp; PowerPoint in Chrome</p>
+    </div>
+  </header>
+
+  <button id="openViewer" class="primary">Open a file…</button>
+
+  <section class="settings">
+    <label class="toggle">
+      <span>
+        <strong>Open Office links here</strong>
+        <small>Links ending in .docx, .xlsx, .pptx… open in DocLens</small>
+      </span>
+      <input type="checkbox" id="interceptLinks">
+    </label>
+    <label class="toggle">
+      <span>
+        <strong>Open Office downloads here</strong>
+        <small>Show downloaded documents instead of saving them</small>
+      </span>
+      <input type="checkbox" id="interceptDownloads">
+    </label>
+  </section>
+
+  <section id="fileAccess" class="hint" hidden>
+    <p>To open files from your computer via <code>file://</code> links, turn on <em>Allow access to file URLs</em>.</p>
+    <button id="openSettings">Open extension settings</button>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>

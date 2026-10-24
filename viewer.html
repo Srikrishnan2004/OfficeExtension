@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocLens</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">
+      <img src="icons/icon32.png" alt="" width="22" height="22">
+      <span>DocLens</span>
+    </div>
+    <div class="file">
+      <span id="kindBadge" class="kind" hidden></span>
+      <span id="fileName" class="file-name"></span>
+    </div>
+    <div class="tools">
+      <div id="zoomGroup" class="zoom" hidden>
+        <button id="zoomOut" class="icon-btn" title="Zoom out" aria-label="Zoom out">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+        </button>
+        <button id="zoomReset" class="zoom-label" title="Reset zoom">100%</button>
+        <button id="zoomIn" class="icon-btn" title="Zoom in" aria-label="Zoom in">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></svg>
+        </button>
+      </div>
+      <button id="openBtn" class="btn" title="Open a file (Ctrl+O)">
+        <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>Open</span>
+      </button>
+      <button id="downloadBtn" class="btn" title="Download original file" hidden>
+        <svg viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>
+        <span>Download</span>
+      </button>
+      <button id="printBtn" class="btn" title="Print (Ctrl+P)" hidden>
+        <svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 14h10v6H7z"/></svg>
+        <span>Print</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="emptyState" class="state">
+      <div class="drop-card">
+        <img src="icons/icon128.png" alt="" width="72" height="72">
+        <h1>Open an Office document</h1>
+        <p>Drag a file anywhere onto this page, or choose one from your computer.</p>
+        <button id="chooseBtn" class="btn primary">Choose file</button>
+        <ul class="formats">
+          <li><span class="dot word"></span>Word <small>.docx .docm .dotx</small></li>
+          <li><span class="dot excel"></span>Excel <small>.xlsx .xlsm .xlsb .xls .ods .csv</small></li>
+          <li><span class="dot powerpoint"></span>PowerPoint <small>.pptx .ppsx .pptm</small></li>
+        </ul>
+        <p class="note">Files are rendered on your computer and never uploaded.</p>
+      </div>
+    </section>
+
+    <section id="loadingState" class="state" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="loadingText">Loading…</p>
+    </section>
+
+    <section id="errorState" class="state" hidden>
+      <div class="error-card">
+        <h2 id="errorTitle">Couldn't open this document</h2>
+        <p id="errorDetail"></p>
+        <div class="error-actions">
+          <button id="errorFileAccessBtn" class="btn" hidden>Allow access to file URLs</button>
+          <button id="errorDownloadBtn" class="btn" hidden>Download the file instead</button>
+          <button id="errorOpenBtn" class="btn primary">Open another file</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="docView" class="doc" hidden></div>
+  </main>
+
+  <nav id="sheetTabs" class="sheet-tabs" hidden></nav>
+  <div id="dropOverlay" class="drop-overlay" hidden><div>Drop to open</div></div>
+  <input id="fileInput" type="file" hidden
+    accept=".docx,.docm,.dotx,.dotm,.xlsx,.xlsm,.xlsb,.xltx,.xltm,.xls,.ods,.fods,.csv,.tsv,.pptx,.pptm,.ppsx,.ppsm,.potx,.potm">
+
+  <script src="viewer.js"></script>
+</body>
+</html>

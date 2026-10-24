@@ -1,0 +1,278 @@
+:root {
+  --bar-bg: #1f2a44;
+  --bar-fg: #e8ecf5;
+  --bar-muted: #9aa6c0;
+  --bar-hover: rgba(255, 255, 255, 0.1);
+  --canvas: #e6e8ec;
+  --card: #ffffff;
+  --text: #1d2433;
+  --muted: #5b6475;
+  --border: #d5d9e0;
+  --accent: #2b6fd6;
+  --word: #2b6fd6;
+  --excel: #1e9e5a;
+  --powerpoint: #e3622f;
+  --grid: #e1e4e8;
+  --header-cell: #f3f4f6;
+  --bar-h: 52px;
+  --tabs-h: 38px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--canvas);
+}
+
+button { font: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--bar-h);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 12px 0 16px;
+  background: var(--bar-bg);
+  color: var(--bar-fg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: 0.2px; flex: none; }
+.file { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; }
+.file-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--bar-fg); }
+.kind {
+  flex: none;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--kind-color, var(--accent));
+}
+.tools { display: flex; align-items: center; gap: 6px; flex: none; }
+
+.btn, .icon-btn, .zoom-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+}
+.bar .btn:hover, .bar .icon-btn:hover, .bar .zoom-label:hover { background: var(--bar-hover); }
+.btn:focus-visible, .icon-btn:focus-visible, .zoom-label:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.btn svg, .icon-btn svg {
+  width: 18px; height: 18px;
+  fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.icon-btn { padding: 0; width: 32px; justify-content: center; }
+.zoom { display: flex; align-items: center; margin-right: 6px; border-right: 1px solid rgba(255,255,255,0.15); padding-right: 8px; }
+.zoom-label { padding: 0 6px; min-width: 56px; justify-content: center; font-variant-numeric: tabular-nums; }
+
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.primary:hover { background: #245fba; }
+.state .btn:not(.primary) { background: #eef1f6; color: var(--text); }
+.state .btn:not(.primary):hover { background: #e2e7ef; }
+
+@media (max-width: 720px) {
+  .brand span, .tools .btn span { display: none; }
+  .tools .btn { padding: 0 8px; }
+}
+
+/* ---------- main area ---------- */
+main {
+  position: fixed;
+  inset: var(--bar-h) 0 0 0;
+  overflow: auto;
+}
+body.has-tabs main { bottom: var(--tabs-h); }
+
+.state {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  text-align: center;
+}
+.drop-card, .error-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: 16px;
+  padding: 36px 32px 28px;
+}
+.error-card { border-style: solid; border-width: 1px; }
+.drop-card h1 { font-size: 22px; margin: 16px 0 6px; }
+.error-card h2 { font-size: 19px; margin: 0 0 8px; }
+.drop-card p, .error-card p { color: var(--muted); margin: 0 0 20px; overflow-wrap: anywhere; }
+.drop-card .btn.primary { height: 40px; padding: 0 22px; font-weight: 600; }
+.formats { list-style: none; padding: 0; margin: 24px 0 12px; display: grid; gap: 8px; text-align: left; justify-content: center; }
+.formats li { display: flex; align-items: center; gap: 10px; }
+.formats small { color: var(--muted); }
+.dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.dot.word { background: var(--word); }
+.dot.excel { background: var(--excel); }
+.dot.powerpoint { background: var(--powerpoint); }
+.note { font-size: 12px; margin: 16px 0 0 !important; }
+.error-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid #c7cdd8;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+#loadingText { color: var(--muted); margin-top: 14px; font-variant-numeric: tabular-nums; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.drop-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 42, 68, 0.55);
+  pointer-events: none;
+}
+.drop-overlay div {
+  padding: 28px 44px;
+  border: 3px dashed #fff;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* ---------- document view ---------- */
+.doc { min-height: 100%; }
+
+/* Word (docx-preview) */
+.doc-word { padding: 24px 0 40px; }
+.doc-word .docx-wrapper { background: transparent !important; padding: 0 !important; }
+.doc-word .docx-wrapper > section.docx {
+  margin: 0 auto 24px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* docx-preview always hyphenates; Word only does when the document enables it. */
+.doc-word .docx { hyphens: manual; }
+.doc-word.docx-autohyphen .docx { hyphens: auto; }
+/* Word drops space-after at the bottom of a page. */
+.doc-word section.docx > article > :last-child { margin-bottom: 0 !important; }
+/* List marker padded to the hanging indent (see fixWordRendering). */
+.doc-word p[class*="docx-num-"]::before { display: inline-block; min-width: var(--doclens-hang, 0); text-indent: 0; }
+
+/* PowerPoint (pptx-preview) */
+.doc-powerpoint { padding: 24px 0 40px; display: flex; justify-content: center; }
+.doc-powerpoint .pptx-preview-wrapper { background: transparent !important; overflow: visible !important; height: auto !important; }
+.doc-powerpoint .pptx-preview-slide-wrapper { box-shadow: 0 1px 3px rgba(0,0,0,0.18), 0 4px 14px rgba(0,0,0,0.08); margin: 0 auto 24px !important; }
+
+/* Excel */
+.doc-excel { background: #fff; display: inline-block; min-width: 100%; }
+.xl-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font: 13px/1.3 Calibri, "Segoe UI", system-ui, sans-serif;
+  color: #111;
+}
+.xl-table td, .xl-table th {
+  border-right: 1px solid var(--grid);
+  border-bottom: 1px solid var(--grid);
+  padding: 2px 5px;
+  height: 21px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  vertical-align: bottom;
+}
+.xl-table td.wrap { white-space: pre-wrap; overflow-wrap: anywhere; }
+.xl-table td.num { text-align: right; }
+.xl-table td.bool, .xl-table td.err { text-align: center; }
+.xl-table td.err { color: #b3261e; }
+.xl-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--header-cell);
+  color: #555;
+  font-weight: 500;
+  text-align: center;
+  border-color: #cfd3da;
+}
+.xl-table tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--header-cell);
+  color: #555;
+  font-weight: 400;
+  text-align: center;
+  border-color: #cfd3da;
+}
+.xl-table thead th.corner { left: 0; z-index: 3; }
+.xl-table a { color: #0b57d0; }
+.xl-more { padding: 12px 16px; display: flex; gap: 12px; align-items: center; color: var(--muted); position: sticky; left: 0; }
+.xl-more .btn { background: #eef1f6; color: var(--text); }
+.xl-empty { padding: 48px; text-align: center; color: var(--muted); }
+
+.sheet-tabs {
+  position: fixed;
+  inset: auto 0 0 0;
+  height: var(--tabs-h);
+  z-index: 10;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  padding: 0 8px;
+  overflow-x: auto;
+  background: #f3f4f6;
+  border-top: 1px solid var(--border);
+}
+.sheet-tabs button {
+  flex: none;
+  border: 0;
+  background: transparent;
+  padding: 0 16px;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+.sheet-tabs button:hover { background: #e8eaee; color: var(--text); }
+.sheet-tabs button[aria-selected="true"] {
+  background: #fff;
+  color: var(--excel);
+  font-weight: 600;
+  border-bottom-color: var(--excel);
+}
+
+/* ---------- print ---------- */
+@media print {
+  html, body { background: #fff; height: auto; }
+  .bar, .sheet-tabs, .drop-overlay, .xl-more, .state { display: none !important; }
+  main { position: static; overflow: visible; }
+  .doc { zoom: 1 !important; padding: 0 !important; }
+  .doc-word .docx-wrapper > section.docx { box-shadow: none !important; margin: 0 !important; break-after: page; }
+  .doc-powerpoint { display: block; }
+  .doc-powerpoint .pptx-preview-slide-wrapper { box-shadow: none; margin: 0 auto !important; break-after: page; break-inside: avoid; }
+  .xl-table thead th, .xl-table tbody th { position: static; }
+}
